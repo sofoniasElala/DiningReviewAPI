@@ -13,16 +13,16 @@ import java.util.Optional;
 
 //this generates a constructor that takes no arguments
 @NoArgsConstructor
-
+//this class basically represents a table called "Dining_review". each field is a column
 @Entity
-@Table(name = "dining_review")
+@Table(name = "Dining_review")
 public class DiningReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Setter(AccessLevel.NONE)// disables Setter method generation for this field since the value is auto-generated
     private Long id;
 
-    private String name;
+    private String userName;
     private Long restaurantId;
     private Optional<Integer> peanutAllergyScore;
     private Optional<Integer> dairyAllergyScore;

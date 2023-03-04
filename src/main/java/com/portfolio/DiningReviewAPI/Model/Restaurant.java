@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 //this class basically represents a table called "restaurant". each field is a column
 @Entity
-@Table(name="RESTAURANT")
+@Table(name="Restaurant")
 public class Restaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
