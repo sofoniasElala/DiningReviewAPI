@@ -28,4 +28,5 @@ public class DiningReview {
     private Optional<Integer> dairyAllergyScore;
     private Optional<Integer> eggAllergyScore;
     private String comment;
+    private ReviewStatus status;
 }
