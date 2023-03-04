@@ -19,7 +19,7 @@ import java.util.Optional;
 public class DiningReview {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Setter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)// disables Setter method generation for this field since the value is auto-generated
     private Long id;
 
     private String name;
