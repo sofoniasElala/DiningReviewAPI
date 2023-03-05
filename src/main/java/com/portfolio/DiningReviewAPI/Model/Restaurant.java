@@ -4,14 +4,14 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 //the following annotations generate Setter and Getter methods for each field
 @Setter
 @Getter
 
-// this generates a constructor that takes no arguments
-@NoArgsConstructor
+// this generates a constructor that takes in required arguments
+@RequiredArgsConstructor
 //this class basically represents a table called "restaurant". each field is a column
 @Entity
 @Table(name="Restaurant")
@@ -22,7 +22,7 @@ public class Restaurant {
     private Long id;
 
     private String name;
-    private String address;
+    private String zip;
     private Double peanutAllergyScore;
     private Double eggAllergyScore;
     private Double dairyAllergyScore;

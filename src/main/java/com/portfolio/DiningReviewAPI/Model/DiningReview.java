@@ -4,15 +4,15 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import java.util.Optional;
 
 //the following annotations generate Setter and Getter methods for each field
 @Setter
 @Getter
 
-//this generates a constructor that takes no arguments
-@NoArgsConstructor
+// this generates a constructor that takes in required arguments
+@RequiredArgsConstructor
 //this class basically represents a table called "Dining_review". each field is a column
 @Entity
 @Table(name = "Dining_review")
