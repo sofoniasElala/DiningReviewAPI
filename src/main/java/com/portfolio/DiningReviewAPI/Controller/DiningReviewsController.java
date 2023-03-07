@@ -41,9 +41,9 @@ public class DiningReviewsController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public DiningReview getReview(@PathVariable Long id){
+    public DiningReview getReview(@PathVariable("id") Long id){
         Optional<DiningReview> review = diningReviewRepository.findById(id);
-        if(!review.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review does not exist.");
+        if(!review.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Review with ID" + id + "does not exist.");
         
         return review.get();
     }
