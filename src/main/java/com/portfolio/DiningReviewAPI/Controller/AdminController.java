@@ -48,7 +48,7 @@ public class AdminController {
     @ResponseStatus(HttpStatus.OK)
     public Restaurant updateReviewStatus(@RequestParam Long id, @RequestBody AdminReviewAction action){
         DiningReview updatedReview;
-        Restaurant updatedRestaurant = restaurantRepository.findById(id).get();
+        Restaurant updatedRestaurant = null;
         Optional <DiningReview> reviewExists = diningReviewRepository.findById(id);
 
         if(!reviewExists.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reivew with id " + id + " not found");
@@ -69,20 +69,23 @@ public class AdminController {
     }
 
     private Restaurant computeAvgscores(DiningReview updatedReview){
+        double howManyScored = 0;
+        double total = 0;
          List<DiningReview>  allApprovedReviews = diningReviewRepository.findAllByRestaurantIdAndStatus(updatedReview.getRestaurantId(), ReviewStatus.Accepted);
-         IntSummaryStatistics dairyAllergyScores = allApprovedReviews.stream().filter(a -> a.getDairyAllergyScore() != null).map(s -> s.getDairyAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
-         IntSummaryStatistics eggAllergyScores = allApprovedReviews.stream().filter(a -> a.getEggAllergyScore() != null).map(s -> s.getEggAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
-         IntSummaryStatistics peanutAllergyScores = allApprovedReviews.stream().filter(a -> a.getPeanutAllergyScore() != null).map(s -> s.getPeanutAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics dairyAllergyScores = allApprovedReviews.stream().filter(a -> a.getDairyAllergyScore() != null && a.getDairyAllergyScore() != 0).map(s -> s.getDairyAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics eggAllergyScores = allApprovedReviews.stream().filter(a -> a.getEggAllergyScore() != null && a.getEggAllergyScore() != 0).map(s -> s.getEggAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics peanutAllergyScores = allApprovedReviews.stream().filter(a -> a.getPeanutAllergyScore() != null && a.getPeanutAllergyScore() != 0).map(s -> s.getPeanutAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
 
          Double avgDairyScore = (double) dairyAllergyScores.getSum() / dairyAllergyScores.getCount();
          Double avgEggScore = (double) eggAllergyScores.getSum() / eggAllergyScores.getCount();
          Double avgPeanutScore = (double) peanutAllergyScores.getSum() / peanutAllergyScores.getCount();
-         double overallScore = (avgDairyScore + avgEggScore + avgPeanutScore) / 3;
-
          Restaurant updatedRestaurant = restaurantRepository.findById(updatedReview.getRestaurantId()).get();
-         updatedRestaurant.setDairyAllergyScore(avgDairyScore);
-         updatedRestaurant.setEggAllergyScore(avgEggScore);
-         updatedRestaurant.setPeanutAllergyScore(avgPeanutScore);
+
+         if(!Double.isNaN(avgDairyScore)) {howManyScored++; total += avgDairyScore; updatedRestaurant.setDairyAllergyScore(avgDairyScore);}
+         if(!Double.isNaN(avgEggScore))  {howManyScored++; total += avgEggScore; updatedRestaurant.setEggAllergyScore(avgEggScore);}
+         if(!Double.isNaN(avgPeanutScore))  {howManyScored++; total += avgPeanutScore; updatedRestaurant.setPeanutAllergyScore(avgPeanutScore);}
+         double overallScore = total / howManyScored;
+
          updatedRestaurant.setOverallScore(overallScore);
 
          return restaurantRepository.save(updatedRestaurant);
