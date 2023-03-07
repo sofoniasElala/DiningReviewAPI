@@ -14,11 +14,11 @@ import com.portfolio.DiningReviewAPI.Repository.*;
 
 @RestController
 @RequestMapping("/admin")
-public class AdminReviewActionsController {
+public class AdminController {
     private final DiningReviewRepository diningReviewRepository;
     private final RestaurantRepository restaurantRepository;
 
-    public AdminReviewActionsController(DiningReviewRepository diningReviewRepository, 
+    public AdminController(DiningReviewRepository diningReviewRepository, 
     RestaurantRepository restaurantRepository){
         this.diningReviewRepository = diningReviewRepository;
         this.restaurantRepository = restaurantRepository;
@@ -70,9 +70,9 @@ public class AdminReviewActionsController {
 
     private Restaurant computeAvgscores(DiningReview updatedReview){
          List<DiningReview>  allApprovedReviews = diningReviewRepository.findAllByRestaurantIdAndStatus(updatedReview.getRestaurantId(), ReviewStatus.Accepted);
-         IntSummaryStatistics dairyAllergyScores = allApprovedReviews.stream().filter(a -> a.getPeanutAllergyScore().isPresent()).map(s -> s.getDairyAllergyScore().get()).mapToInt(Integer::intValue).summaryStatistics();
-         IntSummaryStatistics eggAllergyScores = allApprovedReviews.stream().filter(a -> a.getEggAllergyScore().isPresent()).map(s -> s.getEggAllergyScore().get()).mapToInt(Integer::intValue).summaryStatistics();
-         IntSummaryStatistics peanutAllergyScores = allApprovedReviews.stream().filter(a -> a.getPeanutAllergyScore().isPresent()).map(s -> s.getPeanutAllergyScore().get()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics dairyAllergyScores = allApprovedReviews.stream().filter(a -> a.getDairyAllergyScore() != null).map(s -> s.getDairyAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics eggAllergyScores = allApprovedReviews.stream().filter(a -> a.getEggAllergyScore() != null).map(s -> s.getEggAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
+         IntSummaryStatistics peanutAllergyScores = allApprovedReviews.stream().filter(a -> a.getPeanutAllergyScore() != null).map(s -> s.getPeanutAllergyScore()).mapToInt(Integer::intValue).summaryStatistics();
 
          Double avgDairyScore = (double) dairyAllergyScores.getSum() / dairyAllergyScores.getCount();
          Double avgEggScore = (double) eggAllergyScores.getSum() / eggAllergyScores.getCount();
