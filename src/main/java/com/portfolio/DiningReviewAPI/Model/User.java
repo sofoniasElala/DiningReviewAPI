@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 //this class basically represents a table called "User". each field is a column
 @Entity
-@Table(name="User")
+@Table(name="Users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
