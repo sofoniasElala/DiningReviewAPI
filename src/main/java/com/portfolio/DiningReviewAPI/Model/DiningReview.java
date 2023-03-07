@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.RequiredArgsConstructor;
-import java.util.Optional;
+
 
 //the following annotations generate Setter and Getter methods for each field
 @Setter
@@ -24,9 +24,13 @@ public class DiningReview {
 
     private String userName;
     private Long restaurantId;
-    private Optional<Integer> peanutAllergyScore;
-    private Optional<Integer> dairyAllergyScore;
-    private Optional<Integer> eggAllergyScore;
+
+    @Column(columnDefinition = "integer default null")
+    private Integer peanutAllergyScore;
+    @Column(columnDefinition = "integer default null")
+    private Integer dairyAllergyScore;
+    @Column(columnDefinition = "integer default null")
+    private Integer eggAllergyScore;
     private String comment;
     private ReviewStatus status;
 }
