@@ -25,7 +25,7 @@ public class AdminController {
     }
 
     @GetMapping("/pending_reviews")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<DiningReview> getPendingReviews(){
         List<DiningReview> pendingReviewsAvailable = diningReviewRepository.findAllByStatus(ReviewStatus.Pending);
 
@@ -35,7 +35,7 @@ public class AdminController {
     }
 
     @GetMapping("/pending_reviews/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public DiningReview getPendingReview(@PathVariable("id") Long id){
         Optional<DiningReview> pendingReview = diningReviewRepository.findById(id);
 
@@ -46,12 +46,12 @@ public class AdminController {
 
     @PutMapping("/pending_reviews/update_review_status")
     @ResponseStatus(HttpStatus.OK)
-    public Restaurant updateReviewStatus(@RequestParam Long id, @RequestParam AdminReviewAction action){
+    public Restaurant updateReviewStatus(@RequestParam Long id, @RequestBody AdminReviewAction action){
         DiningReview updatedReview;
         Restaurant updatedRestaurant = restaurantRepository.findById(id).get();
         Optional <DiningReview> reviewExists = diningReviewRepository.findById(id);
 
-        if(!reviewExists.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, " Reivew with id " + id + " not found");
+        if(!reviewExists.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Reivew with id " + id + " not found");
         if (action == null) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Review action is required.");
         updatedReview = reviewExists.get();
 
