@@ -20,7 +20,7 @@ public class RestaurantsController {
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public Restaurant getRestaurant(@PathVariable("id") Long id){
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(id);
 
@@ -28,8 +28,11 @@ public class RestaurantsController {
 
         Restaurant  restaurant = restaurantExists.get();
 
+        if(restaurant.getDairyAllergyScore() != null)
         restaurant.setDairyAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getDairyAllergyScore())));
+        if(restaurant.getEggAllergyScore() != null)
         restaurant.setEggAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getEggAllergyScore())));
+        if(restaurant.getPeanutAllergyScore() != null)
         restaurant.setPeanutAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getPeanutAllergyScore())));
 
         return restaurant;
@@ -46,7 +49,7 @@ public class RestaurantsController {
     }
 
     @GetMapping("/search")
-    @ResponseStatus(HttpStatus.FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public List<Restaurant> searchRestaurants(@RequestParam String zip, String allergy){
         List<Restaurant> restaurants;
         switch(allergy.toLowerCase()){
