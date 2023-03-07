@@ -21,12 +21,18 @@ public class RestaurantsController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.FOUND)
-    public Restaurant getRestaurant(@PathVariable Long id){
+    public Restaurant getRestaurant(@PathVariable("id") Long id){
         Optional<Restaurant> restaurantExists = restaurantRepository.findById(id);
 
-        if(!restaurantExists.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant does not exist.");
+        if(!restaurantExists.isPresent()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Restaurant with id " + id + "does not exist.");
 
-        return restaurantExists.get();
+        Restaurant  restaurant = restaurantExists.get();
+
+        restaurant.setDairyAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getDairyAllergyScore())));
+        restaurant.setEggAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getEggAllergyScore())));
+        restaurant.setPeanutAllergyScore(Double.parseDouble(String.format("%.2f", restaurant.getPeanutAllergyScore())));
+
+        return restaurant;
     }
 
     @PostMapping("/add")
@@ -58,7 +64,7 @@ public class RestaurantsController {
         }
 
         if(restaurants.isEmpty()) throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No restaurants found");
-        
+
         return restaurants;
     }
 }
