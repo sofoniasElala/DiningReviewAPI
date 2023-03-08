@@ -35,7 +35,7 @@ DiningReviews
 - GET /dining_reviews/{id} - returns information about a specific review
 
 ### API Endpoints - examples
-- The API endpoint **/users/create_user** accepts HTTP POST requests with the following parameters in JSON format:
+- The API endpoint **/users/create_user** accepts HTTP POST requests with the following parameters in cURL/JSON format:
     - curl -X POST -H "Content-Type: application/json" -d '{\\"userName\\": \\"John Doe\\", \\"city\\": \\"charlotte\\", \\"state\\": \\"NC\\",\\"zip\\": \\"20000\\", \\"peanutAllergy\\": true,\\"dairyAllergy\\": false,\\"eggAllergy\\": false}' http://localhost:3001/users/create_user
 - The API endpoint **/users/{userName}** accepts HTTP GET requests with the following parameters in JSON format:
     - curl "http://localhost:3001/users/John%20Doe"
