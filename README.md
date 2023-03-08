@@ -1,6 +1,6 @@
 # DiningReviewAPI
 
-This repo contains a Java Spring Boot API that serves as a backend for a mock Restaurant Reviewing website. The API allows reviewers to create/update a profile, submit reviews for existing restuarants. then the admins can accept/reject those pending reviews..etc. check the API end points seciton for more. The app utilizes Spring Boot, Spring Data JPA, and H2 for database management. This project was developed as a demonstration of my skills in Java and Spring Boot development. 
+This repo contains a Java Spring Boot API that serves as a backend for a  mock restaurant reviewing website for customers with allergies to egg, dairy, and peanut. The API allows reviewers to create/update a profile, submit reviews for existing restuarants. then the admins can accept/reject those pending reviews..etc. check the API end points seciton for more. The app utilizes Spring Boot, Spring Data JPA, and H2 for database management. This project was developed as a demonstration of my skills in Java and Spring Boot development. 
 
 
 ## Technologies Used
