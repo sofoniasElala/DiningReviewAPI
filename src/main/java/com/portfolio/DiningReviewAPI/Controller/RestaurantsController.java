@@ -19,6 +19,17 @@ public class RestaurantsController {
         this.restaurantRepository = restaurantRepository;
     }
 
+    @GetMapping
+    @ResponseStatus(HttpStatus.FOUND)
+    public Iterable<Restaurant> getRestaurants(){
+        Iterable<Restaurant> restaurantsExists = restaurantRepository.findAll();
+
+        if(!restaurantsExists.iterator().hasNext()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Restaurants found.");
+
+        return restaurantsExists;
+
+    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Restaurant getRestaurant(@PathVariable("id") Long id){

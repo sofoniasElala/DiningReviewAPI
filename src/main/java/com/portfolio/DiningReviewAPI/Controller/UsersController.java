@@ -21,9 +21,21 @@ public class UsersController {
         this.userRepository = userRepository;
     }
 
+
     @GetMapping
     @ResponseStatus(HttpStatus.FOUND)
-    public User getUser(@RequestParam String userName){
+    public Iterable<User> getUsers(){
+        Iterable<User> usersExists = userRepository.findAll();
+
+        if(!usersExists.iterator().hasNext()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No users found.");
+
+        return usersExists;
+
+    }
+
+    @GetMapping("/{userName}")
+    @ResponseStatus(HttpStatus.FOUND)
+    public User getUser(@PathVariable String userName){
         Optional<User> userExists = userRepository.findByUserNameIgnoreCase(userName);
 
         if(!userExists.isPresent()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found.");
