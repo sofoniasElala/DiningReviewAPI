@@ -36,11 +36,11 @@ DiningReviews
 
 ### API Endpoints - examples
 - The API endpoint **/users/create_user** accepts HTTP POST requests with the following parameters in JSON format:
-    - curl -X POST -H "Content-Type: application/json" -d '{\"userName\": \"John Doe\", \"city\": \"charlotte\", \"state\": \"NC\",\"zip\": \"20000\", \"peanutAllergy\": true,\"dairyAllergy\": false,\"eggAllergy\": false}' http://localhost:3001/users/create_user
+    - curl -X POST -H "Content-Type: application/json" -d '{\\"userName\\": \\"John Doe\\", \\"city\\": \\"charlotte\\", \\"state\\": \\"NC\\",\\"zip\\": \\"20000\\", \\"peanutAllergy\\": true,\\"dairyAllergy\\": false,\\"eggAllergy\\": false}' http://localhost:3001/users/create_user
 - The API endpoint **/users/{userName}** accepts HTTP GET requests with the following parameters in JSON format:
     - curl "http://localhost:3001/users/John%20Doe"
 - The API endpoint **/dining_reviews/submit** accepts HTTP POST requests with the following parameters in JSON format:
-    - curl -X POST http://localhost:3001/dining_reviews/submit  -d "{\"userName\":\"John Doe\",\"restaurantId\": 1,\"eggAllergyScore\":3.0, \"comment\": \"Good\"}" -H "Content-Type: application/json"
+    - curl -X POST http://localhost:3001/dining_reviews/submit  -d "{\\"userName\\":\\"John Doe\\",\\"restaurantId\\": 1,\\"eggAllergyScore\\":3.0, \\"comment\\": \\"Good\\"}" -H "Content-Type: application/json"
 
 
 
