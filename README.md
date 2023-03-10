@@ -10,14 +10,8 @@ This is a Java Spring Boot API that serves as a backend for a restaurant reviewi
 - Hibernate/H2 - (on App Engine where its currently running, it uses google Cloud Sql for MySql)
 - Lombok
 
-## Getting Started
 
-- Clone the repository
-- Run `mvn clean install` to install the necessary dependencies
-- Start the application with `mvn spring-boot:run`
-- The API will be available at `http://localhost:3001`
-
-### API Endpoints
+## API Endpoints
 
 Users
 - POST `/users/create_user` - creates a new user in the system
@@ -36,13 +30,18 @@ DiningReviews
 
 Admin
 - GET `/admin/pending_reviews`
-- .....
+- more in source code.....
 
 ### API Endpoints - examples
+
 - The API endpoint `/users/create_user` accepts HTTP POST requests in the following format:
     - `curl -X POST -H "Content-Type: application/json" -d "{\"userName\": \"John Doe\", \"city\": \"charlotte\", \"state\": \"NC\",\"zip\": \"20000\", \"peanutAllergy\": true,\"dairyAllergy\": false,\"eggAllergy\": false}"  https://dining-review-dot-sofonias-apps.ue.r.appspot.com/users/create_user`
+    
+    
 - The API endpoint `/users/{userName}` accepts HTTP GET requests in the following format:
     - `curl "https://dining-review-dot-sofonias-apps.ue.r.appspot.com/users/John%20Doe"`
+    
+    
 - The API endpoint `/dining_reviews/submit` accepts HTTP POST requests in the following format:
     - `curl -X POST https://dining-review-dot-sofonias-apps.ue.r.appspot.com/dining_reviews/submit  -d "{\"userName\":\"John Doe\",\"restaurantId\": 1,\"eggAllergyScore\":3.0, \"comment\": \"Good\"}" -H "Content-Type: application/json"`
 
