@@ -9,6 +9,7 @@ This is a Java Spring Boot API that serves as a backend for a mock restaurant re
 - JAVA/Spring Boot
 - Hibernate/H2 - (on App Engine where its currently running, it uses google Cloud Sql for MySql)
 - Lombok
+- Maven
 
 
 ## API Endpoints
